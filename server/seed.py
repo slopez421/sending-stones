@@ -44,6 +44,7 @@ if __name__ == '__main__':
                 players_needed = randint(1, 6),
                 players_have = randint(1, 6),
             )
+            listing.user = rc(users)
             listings.append(listing)
         db.session.add_all(listings)
         db.session.commit()
@@ -54,6 +55,8 @@ if __name__ == '__main__':
             comment = Comment(
                 body = fake.sentence()
             )
+            comment.user = rc(users)
+            comment.listing = rc(listings)
             comments.append(comment)
         db.session.add_all(comments)
         db.session.commit()
