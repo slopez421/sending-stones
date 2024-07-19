@@ -5,3 +5,16 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
+.card {
+  text-align: center;
+  border: black solid 1px;
+  background-color: antiquewhite;
+  padding: 1rem;
+  width: 10rem;
+  height: 15rem;
+  display: inline-grid;
+  margin: 2rem 2rem;
+  color: #09ac5a;
+  box-shadow: 2px 2px #09ac5a;
+  border-radius: 5px;
+}
