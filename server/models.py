@@ -1,5 +1,6 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.orm import validates
 
 from config import db
 
@@ -16,6 +17,8 @@ class User(db.Model, SerializerMixin):
     listings = db.relationship('Listing', back_populates='user')
     comments = db.relationship('Comment', back_populates='user')
 
+
+
 class Listing(db.Model, SerializerMixin):
     __tablename__ = 'listings'
     serialize_rules = ('-user.listing', '-comment.listing',)
@@ -23,12 +26,18 @@ class Listing(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
     body = db.Column(db.String, nullable=False)
-    players_needed = db.Column(db.Integer)
-    players_have = db.Column(db.Integer)
+    players_needed = db.Column(db.Integer, db.CheckConstraint('players_needed <= 6'))
+    players_have = db.Column(db.Integer, db.CheckConstraint('players_have <= 6'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     user = db.relationship('User', back_populates='listings')
     comments = db.relationship('Comment', back_populates='listing')
+
+    @validates('players_needed', 'players_have')
+    def validate_players_needed(self, key, players):
+        if players > 6:
+            raise AttributeError("Players_Needed should be equal to or less than 6.")
+        return players
 
 class Comment(db.Model, SerializerMixin):
     __tablename__ = 'comments'
