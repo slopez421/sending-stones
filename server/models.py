@@ -7,7 +7,6 @@ from config import db
 # Models go here!
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
-    serialize_rules = ('-comment.user', '-comment.user',)
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False, unique=True)
@@ -17,11 +16,12 @@ class User(db.Model, SerializerMixin):
     listings = db.relationship('Listing', back_populates='user')
     comments = db.relationship('Comment', back_populates='user')
 
+    serialize_rules = ('-comments.user', '-comments.user',)
+
 
 
 class Listing(db.Model, SerializerMixin):
     __tablename__ = 'listings'
-    serialize_rules = ('-user.listing', '-comment.listing',)
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
@@ -33,6 +33,8 @@ class Listing(db.Model, SerializerMixin):
     user = db.relationship('User', back_populates='listings')
     comments = db.relationship('Comment', back_populates='listing')
 
+    serialize_rules = ('-user.listings', '-comment.listings',)
+
     @validates('players_needed', 'players_have')
     def validate_players_needed(self, key, players):
         if players > 6:
@@ -41,7 +43,6 @@ class Listing(db.Model, SerializerMixin):
 
 class Comment(db.Model, SerializerMixin):
     __tablename__ = 'comments'
-    serialize_rules = ('-user.comment', '-listing.comment',)
 
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String, nullable=False)
@@ -50,3 +51,5 @@ class Comment(db.Model, SerializerMixin):
 
     user = db.relationship('User', back_populates='comments')
     listing = db.relationship('Listing', back_populates='comments')
+
+    serialize_only = ('body',)
