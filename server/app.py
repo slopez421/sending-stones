@@ -26,10 +26,10 @@ class ListingIndex(Resource):
     
     def post(self):
 
-        title = request.form['title']
-        body = request.form['body']
-        players_needed = request.form['players_needed']
-        players_have = request.form['players_have']
+        title = request.get_json()['title']
+        body = request.get_json()['body']
+        players_needed = request.get_json()['players_needed']
+        players_have = request.get_json()['players_have']
 
         new_listing = Listing(title=title, body=body, players_have=players_have, players_needed=players_needed)
 

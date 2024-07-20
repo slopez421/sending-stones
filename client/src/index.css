@@ -18,3 +18,17 @@
   box-shadow: 2px 2px #09ac5a;
   border-radius: 5px;
 }
+
+form {
+  padding-left: 40%;
+  padding-bottom: 3%;
+  text-align: left;
+  font-size: larger;
+  font-family:'Courier New', Courier, monospace;
+  background-color: antiquewhite;
+  border: black solid 1px;
+}
+
+button { 
+  font-family: 'Courier New', Courier, monospace;
+}
