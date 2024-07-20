@@ -6,7 +6,7 @@ function Home() {
 const [listings, setListings] = useState([])
 
 useEffect(() => {
-    fetch("/listings")
+    fetch("/listingindex")
     .then((r) => r.json())
     .then((listings) => setListings(listings))
 }, [])

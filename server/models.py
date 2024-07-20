@@ -37,9 +37,10 @@ class Listing(db.Model, SerializerMixin):
 
     @validates('players_needed', 'players_have')
     def validate_players_needed(self, key, players):
-        if players > 6:
-            raise AttributeError("Players_Needed should be equal to or less than 6.")
-        return players
+        if int(players) > 6:
+            raise AttributeError("Players should be equal to or less than 6.")
+        return int(players)
+
 
 class Comment(db.Model, SerializerMixin):
     __tablename__ = 'comments'

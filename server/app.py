@@ -3,8 +3,9 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response
+from flask import request, make_response, jsonify
 from flask_restful import Resource
+
 
 # Local imports
 from config import app, db, api
@@ -17,13 +18,31 @@ from models import User, Comment, Listing
 def index():
     return '<h1>Project Server</h1>'
 
-class Listings(Resource):
+class ListingIndex(Resource):
     def get(self):
         listing_dict_list = [listing.to_dict() for listing in Listing.query.all()]
         response = make_response(listing_dict_list, 200)
         return response
+    
+    def post(self):
 
-api.add_resource(Listings, '/listings')
+        title = request.form['title']
+        body = request.form['body']
+        players_needed = request.form['players_needed']
+        players_have = request.form['players_have']
+
+        new_listing = Listing(title=title, body=body, players_have=players_have, players_needed=players_needed)
+
+        try:
+            db.session.add(new_listing)
+            db.session.commit()
+    
+            return new_listing.to_dict(), 201
+        
+        except:
+            return {'error': 'Failed to create new listing'}, 422
+        
+api.add_resource(ListingIndex, '/listingindex')
 
 
 
