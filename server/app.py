@@ -19,7 +19,7 @@ def index():
 class CheckSession(Resource):
     def get(self):
         if session.get('user_id'):
-            user = db.session.query(User).filter(User.id == session['user_id'])
+            user = db.session.query(User).filter(User.id == session['user_id']).first()
             return user.to_dict(), 200
         return {'error': 'Unauthorized. Not Logged In'}, 401
 
@@ -46,9 +46,24 @@ class ListingIndex(Resource):
         
         except:
             return {'error': 'Failed to create new listing'}, 422
+
+class Login(Resource): 
+    def post(self):
+        username = request.get_json()['username']
+        password = request.get_json()['password']
+        user = User.query.filter(User.username == username).first()
+
+        if (user) and (user.authenticate(password)):
+            session['user_id'] = user.id
+            return user.to_dict(), 200
+        
+        return {'error': 'Invalid username or password.'}, 401
+
+
         
 api.add_resource(ListingIndex, '/listingindex')
 api.add_resource(CheckSession, '/check_session')
+api.add_resource(Login, '/login')
 
 
 

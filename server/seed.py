@@ -9,6 +9,7 @@ from faker import Faker
 # Local imports
 from app import app
 from models import db, User, Comment, Listing
+from config import bcrypt
 
 
 if __name__ == '__main__':
@@ -29,7 +30,7 @@ if __name__ == '__main__':
             first_name = fake.first_name(),
             last_name = fake.last_name(),
             username = fake.user_name(),
-            _password_hash = fake.user_name(),
+            _password_hash = bcrypt.generate_password_hash('sample').decode('utf-8'),
         )
             users.append(user)
 
