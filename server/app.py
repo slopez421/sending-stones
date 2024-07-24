@@ -3,20 +3,25 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response, jsonify
+from flask import request, make_response, jsonify, session
 from flask_restful import Resource
-
-
 # Local imports
 from config import app, db, api
 # Add your model imports
 from models import User, Comment, Listing
-
 # Views go here!
 
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
+
+    
+class CheckSession(Resource):
+    def get(self):
+        if session.get('user_id'):
+            user = db.session.query(User).filter(User.id == session['user_id'])
+            return user.to_dict(), 200
+        return {'error': 'Unauthorized. Not Logged In'}, 401
 
 class ListingIndex(Resource):
     def get(self):
@@ -43,6 +48,7 @@ class ListingIndex(Resource):
             return {'error': 'Failed to create new listing'}, 422
         
 api.add_resource(ListingIndex, '/listingindex')
+api.add_resource(CheckSession, '/check_session')
 
 
 
