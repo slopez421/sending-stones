@@ -1,8 +1,8 @@
-"""migration after importing models into env
+"""redid revisions bc of error
 
-Revision ID: f6d7b2d94888
-Revises: 3d05445d9f5d
-Create Date: 2024-07-18 16:37:06.354491
+Revision ID: acf85ee044e3
+Revises: f6d7b2d94888
+Create Date: 2024-07-23 21:17:32.921357
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f6d7b2d94888'
-down_revision = '3d05445d9f5d'
+revision = 'acf85ee044e3'
+down_revision = 'f6d7b2d94888'
 branch_labels = None
 depends_on = None
 
@@ -21,6 +21,7 @@ def upgrade():
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(), nullable=False),
+    sa.Column('_password_hash', sa.String(), nullable=False),
     sa.Column('first_name', sa.String(), nullable=False),
     sa.Column('last_name', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id'),

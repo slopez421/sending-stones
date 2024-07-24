@@ -28,7 +28,8 @@ if __name__ == '__main__':
             user = User(
             first_name = fake.first_name(),
             last_name = fake.last_name(),
-            username = fake.user_name()
+            username = fake.user_name(),
+            _password_hash = fake.user_name(),
         )
             users.append(user)
 

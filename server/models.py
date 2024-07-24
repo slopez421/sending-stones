@@ -1,8 +1,9 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import validates
+from sqlalchemy.ext.hybrid import hybrid_property
 
-from config import db
+from config import db, bcrypt
 
 # Models go here!
 class User(db.Model, SerializerMixin):
@@ -10,14 +11,31 @@ class User(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False, unique=True)
+    _password_hash = db.Column(db.String, nullable=False)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
 
     listings = db.relationship('Listing', back_populates='user')
     comments = db.relationship('Comment', back_populates='user')
 
-    serialize_rules = ('-comments.user', '-comments.user',)
+    serialize_rules = ('-comments.user', '-comments.user', '-_passwprd_hash',)
 
+    @hybrid_property
+    def password_hash(self):
+        raise AttributeError('Password hashes may not be viewed.')
+    
+    @password_hash.setter
+    def password_jash(self, password):
+        password_hash = bcrypt.generate_password_hash(
+            password.encode('utf-8'))
+        self._password_hash = password_hash.decode('utf-8')
+    
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(
+            self._password_hash, password.encode('utf-8'))
+    
+    def __repr__(self):
+        return f'<User {self.username}'
 
 
 class Listing(db.Model, SerializerMixin):
