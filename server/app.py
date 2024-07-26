@@ -62,11 +62,17 @@ class Login(Resource):
 
 class Logout(Resource):
     def delete(self):
-        pass
+        session['user_id'] = None
+        return {}, 204
+
+class Signup(Resource):
+    pass
         
 api.add_resource(ListingIndex, '/listingindex')
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
+api.add_resource(Logout, '/logout')
+api.add_resource(Signup, '/signup')
 
 
 
