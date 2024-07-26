@@ -35,8 +35,9 @@ class ListingIndex(Resource):
         body = request.get_json()['body']
         players_needed = request.get_json()['players_needed']
         players_have = request.get_json()['players_have']
+        user_id = request.get_json()['user_id']
 
-        new_listing = Listing(title=title, body=body, players_have=players_have, players_needed=players_needed)
+        new_listing = Listing(title=title, body=body, players_have=players_have, players_needed=players_needed, user_id=user_id)
 
         try:
             db.session.add(new_listing)
@@ -59,7 +60,9 @@ class Login(Resource):
         
         return {'error': 'Invalid username or password.'}, 401
 
-
+class Logout(Resource):
+    def delete(self):
+        pass
         
 api.add_resource(ListingIndex, '/listingindex')
 api.add_resource(CheckSession, '/check_session')
