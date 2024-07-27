@@ -1,13 +1,15 @@
 import React from "react";
 import ListingCard from "./ListingCard";
+import { CardGroup } from "semantic-ui-react";
 
 function ListingsContainer({listings}) {
-    return <div>
-        <h2>Adventuring Party Tavern</h2>
+    return <CardGroup className="group-container">
         {listings.map((listing) => {
-            return <ListingCard listing={listing} key={listing.id} />
+            return <>
+            <ListingCard listing={listing} key={listing.id}/>
+            </>
         })}
-    </div>
+    </CardGroup>
 }
 
 export default ListingsContainer

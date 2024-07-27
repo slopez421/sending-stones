@@ -66,7 +66,22 @@ class Logout(Resource):
         return {}, 204
 
 class Signup(Resource):
-    pass
+    def post(self):
+        first_name = request.get_json()['first_name']
+        last_name = request.get_json()['last_name']
+        username = request.get_json()['username']
+        password = request.get_json()['password']
+        user = User(first_name=first_name, last_name=last_name, username=username)
+        user.password_hash = password
+    
+        try:
+            db.session.add(user)
+            db.session.commit()
+            session['user_id'] = user.id
+            return user.to_dict(), 201
+        except:
+            return {'error': 'Failed to sign up.'}, 422
+
         
 api.add_resource(ListingIndex, '/listingindex')
 api.add_resource(CheckSession, '/check_session')

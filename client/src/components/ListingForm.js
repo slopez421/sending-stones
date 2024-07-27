@@ -1,23 +1,20 @@
-import React, {useState} from "react";
+import React from "react";
 
 function ListingForm({formik}) {
-
-
-
-    return <div>
-        <h1>Post a Listing</h1>
-        <form onSubmit={formik.handleSubmit} >
+    
+    return <div className="form">
+        <form onSubmit={formik.handleSubmit}>
             <label>Title: </label>
-            <input id="title" name="title" onChange={formik.handleChange} value={formik.values.title} /><br />
+            <input id="title" name="title" onChange={formik.handleChange} value={formik.values.title} />
             <p style={{ color: "red" }}> {formik.errors.title}</p>
             <label>Description: </label>
-            <input id="body" name="body" onChange={formik.handleChange} value={formik.values.body} /><br />
+            <input id="body" name="body" onChange={formik.handleChange} value={formik.values.body} />
             <p style={{ color: "red" }}> {formik.errors.body}</p>
             <label>Players Needed: </label>
-            <input id="players_needed" name="players_needed" onChange={formik.handleChange} value={formik.values.players_needed} /><br />
+            <input id="players_needed" name="players_needed" onChange={formik.handleChange} value={formik.values.players_needed} />
             <p style={{ color: "red" }}> {formik.errors.players_needed}</p>
             <label>Players Have: </label>
-            <input id="players_have" name="players_have" onChange={formik.handleChange} value={formik.values.players_have} /><br />
+            <input id="players_have" name="players_have" onChange={formik.handleChange} value={formik.values.players_have} />
             <p style={{ color: "red" }}> {formik.errors.players_have}</p>
             <button type="submit">Submit</button>
         </form>
