@@ -73,5 +73,5 @@ class Comment(db.Model, SerializerMixin):
     user = db.relationship('User', back_populates='comments')
     listing = db.relationship('Listing', back_populates='comments')
 
-    serialize_only = ('body',)
+    serialize_only = ('body', 'id','listing_id')
     def __repr__(self): return f'<Comment {self.id}: {self.body}>'

@@ -23,12 +23,6 @@ class CheckSession(Resource):
             return user.to_dict(), 200
         return {'error': 'Unauthorized. Not Logged In'}, 401
 
-class JoinedListings(Resource):
-    def get(self):
-        listings = db.session.query(Listing).join(User).filter(Listing.user_id == User.id).all()
-
-        return [list.to_dict() for list in listings], 200
-
 class ListingIndex(Resource):
     def get(self):
         listings = db.session.query(Listing).join(User).filter(Listing.user_id == User.id).all()
@@ -87,13 +81,18 @@ class Signup(Resource):
         except:
             return {'error': 'Failed to sign up.'}, 422
 
+class Comments(Resource):
+    def get(self):
+        comments = Comment.query.all()
+        return [comment.to_dict() for comment in comments], 200
+
         
 api.add_resource(ListingIndex, '/listingindex')
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(Signup, '/signup')
-api.add_resource(JoinedListings, '/joinedlistings')
+api.add_resource(Comments, '/comments')
 
 
 
