@@ -23,11 +23,16 @@ class CheckSession(Resource):
             return user.to_dict(), 200
         return {'error': 'Unauthorized. Not Logged In'}, 401
 
+class JoinedListings(Resource):
+    def get(self):
+        listings = db.session.query(Listing).join(User).filter(Listing.user_id == User.id).all()
+
+        return [list.to_dict() for list in listings], 200
+
 class ListingIndex(Resource):
     def get(self):
-        listing_dict_list = [listing.to_dict() for listing in Listing.query.all()]
-        response = make_response(listing_dict_list, 200)
-        return response
+        listings = db.session.query(Listing).join(User).filter(Listing.user_id == User.id).all()
+        return [list.to_dict() for list in listings], 200
     
     def post(self):
 
@@ -36,7 +41,7 @@ class ListingIndex(Resource):
         players_needed = request.get_json()['players_needed']
         players_have = request.get_json()['players_have']
         user_id = request.get_json()['user_id']
-
+    
         new_listing = Listing(title=title, body=body, players_have=players_have, players_needed=players_needed, user_id=user_id)
 
         try:
@@ -88,6 +93,7 @@ api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(Signup, '/signup')
+api.add_resource(JoinedListings, '/joinedlistings')
 
 
 

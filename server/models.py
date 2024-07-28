@@ -58,6 +58,8 @@ class Listing(db.Model, SerializerMixin):
         if int(players) > 6:
             raise AttributeError("Players should be equal to or less than 6.")
         return int(players)
+    
+    def __repr__(self): return f'<Listing {self.id}: {self.title}>'
 
 
 class Comment(db.Model, SerializerMixin):
@@ -72,3 +74,4 @@ class Comment(db.Model, SerializerMixin):
     listing = db.relationship('Listing', back_populates='comments')
 
     serialize_only = ('body',)
+    def __repr__(self): return f'<Comment {self.id}: {self.body}>'
