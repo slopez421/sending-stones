@@ -85,6 +85,21 @@ class Comments(Resource):
     def get(self):
         comments = Comment.query.all()
         return [comment.to_dict() for comment in comments], 200
+    
+    def post(self):
+        body = request.get_json()['body']
+        user_id = request.get_json()['user_id']
+        listing_id = request.get_json()['listing_id']
+
+        comment = Comment(body=body, user_id=user_id, listing_id=listing_id)
+
+        try:
+            db.session.add(comment)
+            db.session.commit()
+            return comment.to_dict(), 201
+        except:
+            return {'error': 'Failed to post comment.'}
+
 
         
 api.add_resource(ListingIndex, '/listingindex')
