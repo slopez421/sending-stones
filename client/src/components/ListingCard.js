@@ -1,21 +1,23 @@
 import React from "react";
 import {Card, CardContent, CardHeader, CardMeta, CardDescription} from 'semantic-ui-react'
+import CommentForm from "./CommentForm";
 
-function ListingCard({listing}) {
-    const {title, body, players_have, players_needed, user_id, comments} = listing;
-
+function ListingCard({listing, refreshPage, setRefreshPage, currentUser}) {
+    const {title, body, players_have, players_needed, comments, user} = listing;
+    
     return <Card className="ui card">
             <CardContent>
                 <CardHeader>{title}</CardHeader>
-                <CardMeta>{user_id}</CardMeta><br />
+                <CardMeta>{user ? <p>{user.username}</p> : ""}</CardMeta><br />
                 <CardMeta>
                 Has: {players_needed} players<br />
                 Needs: {players_have} players
                 </CardMeta>
                 <CardDescription>{body}</CardDescription>
             </CardContent>
-            {comments ? comments.map((comment) => <p>{comment.body}</p>) : <p></p>}
-        <input type="text" name="comment" placeholder="Leave a comment!"/>
+            <CardContent extra>Comments: {comments ? comments.map((comment) => <p key={comment.id}>{comment.body}</p>) : <p></p>}
+            <CommentForm user={currentUser } refreshPage={refreshPage} setRefreshPage={setRefreshPage} listing={listing}/>
+            </CardContent>
         </Card>
 }
 

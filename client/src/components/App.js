@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 
+
 function App() {
 const [user, setUser] = useState(null)
 
@@ -19,7 +20,7 @@ const [user, setUser] = useState(null)
   
   if (!user) return <Login user={user} setUser={setUser} />
 
-  return <div>
+  return <div data-theme="autumn">
     <BrowserRouter>
     <NavBar setUser={setUser}/>
     <Switch>

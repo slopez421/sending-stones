@@ -31,7 +31,6 @@ function SignUpForm({user, setUser}) {
                 if (res.ok) {
                     console.log(res)
                     res.json().then((user) => setUser(user));
-                    console.log(user)
                 } else {
                   res.json().then((error) => console.log(error))
                 }
