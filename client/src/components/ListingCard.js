@@ -1,24 +1,22 @@
 import React from "react";
-import {Card, CardContent, CardHeader, CardMeta, CardDescription} from 'semantic-ui-react'
 import CommentForm from "./CommentForm";
 
 function ListingCard({listing, refreshPage, setRefreshPage, currentUser}) {
     const {title, body, players_have, players_needed, comments, user} = listing;
     
-    return <Card className="ui card">
-            <CardContent>
-                <CardHeader>{title}</CardHeader>
-                <CardMeta>{user ? <p>{user.username}</p> : ""}</CardMeta><br />
-                <CardMeta>
-                Has: {players_needed} players<br />
+    return <div className="card bg-primary text-primary-content w-96">
+            <div className="card-body">
+                <h2 className="card-title">{title}</h2>
+                    {user ? <p>{user.username}</p> : ""}
+                    Has: {players_needed} players<br />
                 Needs: {players_have} players
-                </CardMeta>
-                <CardDescription>{body}</CardDescription>
-            </CardContent>
-            <CardContent extra>Comments: {comments ? comments.map((comment) => <p key={comment.id}>{comment.body}</p>) : <p></p>}
-            <CommentForm user={currentUser } refreshPage={refreshPage} setRefreshPage={setRefreshPage} listing={listing}/>
-            </CardContent>
-        </Card>
+                {body}
+                Comments: {comments ? comments.map((comment) => <p key={comment.id}>{comment.body}</p>) : <p></p>}
+                <CommentForm user={currentUser } refreshPage={refreshPage} setRefreshPage={setRefreshPage} listing={listing}/>
+      <div className="card-actions justify-end">
+      </div>
+    </div>
+  </div>
 }
 
 export default ListingCard
