@@ -15,10 +15,12 @@ useEffect(() => {
 
 
     return (
-        <div>
+        <div className="container mx-auto">
             <ListingForm user={user} refreshPage={refreshPage} setRefreshPage={setRefreshPage}/>
+            <div className="divider-horizontal"></div>
             <ListingsContainer listings={listings} user={user} refreshPage={refreshPage} setRefreshPage={setRefreshPage} />
-        </div>
+                
+    </div>
     )
 }
 

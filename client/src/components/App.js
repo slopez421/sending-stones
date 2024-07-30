@@ -21,6 +21,7 @@ const [user, setUser] = useState(null)
   if (!user) return <Login user={user} setUser={setUser} />
 
   return <div data-theme="autumn">
+    <div>
     <BrowserRouter>
     <NavBar setUser={setUser}/>
     <Switch>
@@ -29,6 +30,7 @@ const [user, setUser] = useState(null)
       </Route>
     </Switch>
     </BrowserRouter>
+    </div>
   </div>
 }
 

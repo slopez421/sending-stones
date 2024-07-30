@@ -41,7 +41,7 @@ function LoginForm({user, setUser}) {
             <input id="username" name="username" onChange={loginFormik.handleChange} value={loginFormik.values.username} />
             <p style={{ color: "red" }}> {loginFormik.errors.username}</p>
             <label>Password:</label>
-            <input id="password" name="password" onChange={loginFormik.handleChange} value={loginFormik.values.password} />
+            <input id="password" type="password" name="password" onChange={loginFormik.handleChange} value={loginFormik.values.password} />
             <p style={{ color: "red" }}> {loginFormik.errors.password}</p>
             <button type="submit">Login</button>
         </form>
