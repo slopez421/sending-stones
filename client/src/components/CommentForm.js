@@ -2,7 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-function CommentForm({user, listing, refreshPage, setRefreshPage}) {
+function CommentForm({user, listing, refreshPage, setRefreshPage, listing_id}) {
 
 const commentFormSchema = yup.object().shape({
     body: yup.string().max(100),
@@ -23,7 +23,6 @@ const commentFormik = useFormik({
             },
             body: JSON.stringify(values),
         }).then((res) => {
-            console.log(res)
             if (res.ok) {
                 setRefreshPage(!refreshPage);
             }
@@ -36,7 +35,7 @@ const commentFormik = useFormik({
         <div className="card-actions">
         <input id="body" className="input input-bordered input-sm w-full max-w-xs" type="text" name="body" placeholder="Leave a comment!" onChange={commentFormik.handleChange}/>
         <button className="btn" type="submit">Post</button>
-        <p className="input-error">{commentFormik.errors.body}</p>
+        <p>{commentFormik.errors.body}</p>
         </div>
     </form>
 

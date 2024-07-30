@@ -4,7 +4,7 @@ import ListingForm from "../components/ListingForm";
 
 function Home({user}) {
 
-const [listings, setListings] = useState([{}])
+const [listings, setListings] = useState([])
 const [refreshPage, setRefreshPage] = useState(false)
 
 useEffect(() => {
@@ -15,11 +15,11 @@ useEffect(() => {
 
 
     return (
-        <div className="container mx-auto">
+        <div>
+            <div className="ml-20">
             <ListingForm user={user} refreshPage={refreshPage} setRefreshPage={setRefreshPage}/>
-            <div className="divider-horizontal"></div>
-            <ListingsContainer listings={listings} user={user} refreshPage={refreshPage} setRefreshPage={setRefreshPage} />
-                
+            </div>
+            <ListingsContainer listings={listings} user={user} refreshPage={refreshPage} setRefreshPage={setRefreshPage} /> 
     </div>
     )
 }

@@ -97,6 +97,7 @@ class Comments(Resource):
             db.session.add(comment)
             db.session.commit()
             return comment.to_dict(), 201
+        
         except:
             return {'error': 'Failed to post comment.'}
 

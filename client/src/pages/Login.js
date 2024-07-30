@@ -7,11 +7,10 @@ function Login({user, setUser}) {
 const [showLogin, setShowLogin] = useState(true);
 
     return (
-    <div>
+    <div className="grid place-content-center m-40">
         {showLogin ? (
             <>
-            <LoginForm user={user} setUser={setUser}/>
-            <button onClick={() => setShowLogin(false)}>Don't have an account?</button>
+            <LoginForm user={user} setUser={setUser} setShowLogin={setShowLogin}/>
             </>
             ): (
             <>
