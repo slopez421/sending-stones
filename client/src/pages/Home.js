@@ -2,10 +2,9 @@ import React, {useEffect, useState} from "react";
 import ListingsContainer from "../components/ListingsContainer";
 import ListingForm from "../components/ListingForm";
 
-function Home({user}) {
+function Home({user, refreshPage, setRefreshPage}) {
 
 const [listings, setListings] = useState([])
-const [refreshPage, setRefreshPage] = useState(false)
 
 useEffect(() => {
     fetch("/listingindex")
@@ -16,7 +15,7 @@ useEffect(() => {
 
     return (
         <div>
-            <div className="ml-20">
+            <div className="mx-20" >
             <ListingForm user={user} refreshPage={refreshPage} setRefreshPage={setRefreshPage}/>
             </div>
             <ListingsContainer listings={listings} user={user} refreshPage={refreshPage} setRefreshPage={setRefreshPage} /> 

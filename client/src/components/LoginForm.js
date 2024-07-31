@@ -2,7 +2,7 @@ import React from "react";
 import * as yup from "yup"
 import { useFormik } from "formik";
 
-function LoginForm({user, setUser, setShowLogin}) {
+function LoginForm({setErrors, errors, setUser, setShowLogin}) {
 
     const loginFormSchema = yup.object().shape({
         username: yup.string().required("Username is required to login."),
@@ -28,7 +28,7 @@ function LoginForm({user, setUser, setShowLogin}) {
                     console.log(res)
                     res.json().then((user) => setUser(user));
                 } else {
-                  res.json().then((error) => console.log(error))
+                  res.json().then((error) => setErrors(error))
                 }
                 });
             },
@@ -65,7 +65,7 @@ function LoginForm({user, setUser, setShowLogin}) {
             <button className="btn" type="submit">Login</button>
             <button className="btn" onClick={() => setShowLogin(false)}>Don't have an account?</button>
         </form>
-        
+        {errors ? <h2 className="card-body">Uh oh! {errors.error}</h2>: <></> }
     </div>
 }
 

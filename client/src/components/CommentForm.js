@@ -33,11 +33,14 @@ const commentFormik = useFormik({
     
     return <form onSubmit={commentFormik.handleSubmit}>
         <div className="card-actions">
-        <input id="body" className="input input-bordered input-sm w-full max-w-xs" type="text" name="body" placeholder="Leave a comment!" onChange={commentFormik.handleChange}/>
-        <button className="btn" type="submit">Post</button>
+        <div className="join">
+        <input id="body" className="input input-bordered join-item" type="text" name="body" placeholder="Leave a comment!" onChange={commentFormik.handleChange}/>
+        <button className="btn join-item rounded-r-full" type="submit">Post</button>
         <p>{commentFormik.errors.body}</p>
         </div>
+        </div>
     </form>
+   
 
 }
 

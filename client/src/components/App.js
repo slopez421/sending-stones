@@ -8,7 +8,8 @@ import MyListings from "../pages/MyListings";
 
 function App() {
 const [user, setUser] = useState(null)
-
+const [refreshPage, setRefreshPage] = useState(false)
+const [errors, setErrors] = useState("")
 
   useEffect(() => {
     fetch("/check_session").then((r) => {
@@ -18,16 +19,16 @@ const [user, setUser] = useState(null)
     });
   }, []);
   
-  if (!user) return <Login user={user} setUser={setUser} />
+  if (!user) return <Login user={user} setUser={setUser} errors={errors} setErrors={setErrors}/>
 
   return <div data-theme="autumn">
     <div>
     <BrowserRouter>
     <NavBar setUser={setUser}/>
     <Routes>
-      <Route path ="/" element={<Home user={user}/>}>
+      <Route path ="/" element={<Home refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
       </Route>
-      <Route path="/mylistings" element={<MyListings />}>
+      <Route path="/mylistings" element={<MyListings refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
       </Route>
       </Routes>
     </BrowserRouter>
