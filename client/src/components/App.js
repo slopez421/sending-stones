@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
-import { BrowserRouter } from "react-router-dom/cjs/react-router-dom";
+import { Routes, BrowserRouter, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import MyListings from "../pages/MyListings";
 
 
 function App() {
@@ -24,11 +24,12 @@ const [user, setUser] = useState(null)
     <div>
     <BrowserRouter>
     <NavBar setUser={setUser}/>
-    <Switch>
-      <Route path ="/">
-        <Home user={user}/>
+    <Routes>
+      <Route path ="/" element={<Home user={user}/>}>
       </Route>
-    </Switch>
+      <Route path="/mylistings" element={<MyListings />}>
+      </Route>
+      </Routes>
     </BrowserRouter>
     </div>
   </div>

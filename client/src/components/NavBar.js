@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom/cjs/react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function NavBar({setUser}) {
 
@@ -34,8 +34,8 @@ function handleLogout() {
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-        <li>Homepage</li>
-        <li>Portfolio</li>
+        <li><NavLink exact to="/">Homepage</NavLink></li>
+        <li><NavLink exact to="/mylistings">My Posts</NavLink></li>
         <li>About</li>
       </ul>
     </div>
