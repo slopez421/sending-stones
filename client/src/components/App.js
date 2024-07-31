@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import MyListings from "../pages/MyListings";
+import Account from "../pages/Account";
 
 
 function App() {
@@ -29,6 +30,8 @@ const [errors, setErrors] = useState("")
       <Route path ="/" element={<Home refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
       </Route>
       <Route path="/mylistings" element={<MyListings refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
+      </Route>
+      <Route path="/myaccount" element={<Account user={user}/>}>
       </Route>
       </Routes>
     </BrowserRouter>

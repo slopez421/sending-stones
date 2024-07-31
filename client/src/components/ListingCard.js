@@ -7,10 +7,9 @@ function ListingCard({listing, refreshPage, setRefreshPage, currentUser}) {
     return <div className="card-compact w-full max-w-sm shrink-0 shadow-2xl rounded-box bg-primary text-primary-content w-96 ">
             <div className="card-body">
                 <h2 className="card-title">{title}</h2>
-                    {user ? <p>{user.username}</p> : ""}
-                    Has: {players_needed} players<br />
-                Needs: {players_have} players
-                {body}
+                    <h3>Posted By: {user ? <p>{user.username}</p> : ""}</h3>
+                    <h3>This adventuring party has {players_have} players and is seeking {players_needed} more players.</h3>
+                <p>{body}</p>
         <CommentForm user={currentUser } refreshPage={refreshPage} setRefreshPage={setRefreshPage} listing_id={listing.id} listing={listing}/>
         <div className="collapse">
             <input type="checkbox" className="peer" />

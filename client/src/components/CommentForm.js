@@ -37,7 +37,7 @@ const commentFormik = useFormik({
         <input id="body" className="input input-bordered join-item" type="text" name="body" placeholder="Leave a comment!" onChange={commentFormik.handleChange}/>
         <button className="btn join-item rounded-r-full" type="submit">Post</button>
         <p>{commentFormik.errors.body}</p>
-        </div>
+         </div>
         </div>
     </form>
    
