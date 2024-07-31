@@ -23,7 +23,7 @@ const [errors, setErrors] = useState("")
   if (!user) return <Login user={user} setUser={setUser} errors={errors} setErrors={setErrors}/>
 
   return <div data-theme="autumn">
-    <div>
+    <div >
     <BrowserRouter>
     <NavBar setUser={setUser}/>
     <Routes>
@@ -31,7 +31,7 @@ const [errors, setErrors] = useState("")
       </Route>
       <Route path="/mylistings" element={<MyListings refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
       </Route>
-      <Route path="/myaccount" element={<Account user={user}/>}>
+      <Route path="/myaccount" element={<Account refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
       </Route>
       </Routes>
     </BrowserRouter>

@@ -14,7 +14,7 @@ useEffect(() => {
 
 
     return (
-        <div>
+        <div >
             <div className="mx-20" >
             <ListingForm user={user} refreshPage={refreshPage} setRefreshPage={setRefreshPage}/>
             </div>

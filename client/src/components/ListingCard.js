@@ -4,7 +4,7 @@ import CommentForm from "./CommentForm";
 function ListingCard({listing, refreshPage, setRefreshPage, currentUser}) {
     const {title, body, players_have, players_needed, comments, user} = listing;
     
-    return <div className="card-compact w-full max-w-sm shrink-0 shadow-2xl rounded-box bg-primary text-primary-content w-96 ">
+    return <div className="card-compact w-xl max-w-sm shrink-0 shadow-2xl rounded-box bg-primary text-primary-content w-96 ">
             <div className="card-body">
                 <h2 className="card-title">{title}</h2>
                     <h3>Posted By: {user ? <p>{user.username}</p> : ""}</h3>
