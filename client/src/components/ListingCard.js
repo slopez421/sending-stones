@@ -17,7 +17,7 @@ function ListingCard({listing, refreshPage, setRefreshPage, currentUser}) {
                 <p className="card-title">Comments</p>
             </div>
                 <div className="collapse-content bg-neutral-content text-primary-content peer-checked:bg-neutral-content peer-checked:text-secondary-content">
-                    {comments ? comments.map((comment) =>
+                    {comments.length > 0 ? comments.map((comment) =>
                         <div className="chat chat-end"><div className="chat-bubble" key={comment.id}>{comment.body}</div></div>) : <p>Be the first to comment!</p>}
                 </div>
             </div>

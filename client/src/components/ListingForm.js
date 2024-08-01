@@ -38,7 +38,7 @@ const listingFormik = useFormik({
     
     return <div className="card w-xl shadow-2xl max-w-sm shrink-0 w-96 ">
         <form className="card-body" onSubmit={listingFormik.handleSubmit}>
-        <h1 className="card-title justify-center">Adventuring Board</h1><br />
+        <h1 className="card-title text-primary justify-center">Adventuring Board</h1><br />
             <label className="input input-bordered flex items-center gap-2">Title
             <input id="title" type="text" className="grow" placeholder="Title your post" name="title" onChange={listingFormik.handleChange} value={listingFormik.values.title} />
             </label>
@@ -57,7 +57,7 @@ const listingFormik = useFormik({
             <input id="players_have" name="players_have" onChange={listingFormik.handleChange} value={listingFormik.values.players_have} />
             </label>
             <p style={{ color: "red" }}> {listingFormik.errors.players_have}</p>
-            <button className="btn" type="submit">Submit</button>
+            <button className="btn btn-primary" type="submit">Submit</button>
         </form>
     </div>
 }

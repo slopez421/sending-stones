@@ -20,7 +20,7 @@ useEffect(() => {
             <ListingForm user={user} refreshPage={refreshPage} setRefreshPage={setRefreshPage}/>
             </div>
             <div className="col-span-3 mt-10">
-            <HomeMessage />
+            <HomeMessage listings={listings}/>
             </div>
             <div className="col-span-4">
             <ListingsContainer listings={listings} user={user} refreshPage={refreshPage} setRefreshPage={setRefreshPage} /> 
