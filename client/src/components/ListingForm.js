@@ -7,8 +7,8 @@ function ListingForm({refreshPage, setRefreshPage, user}) {
 const listingFormSchema = yup.object().shape({
     title: yup.string().required("Adventuring posts need a title!"),
     body: yup.string().required("A description is required.").max(200),
-    players_needed: yup.number().positive().integer().typeError("Please enter a number.").max(6),
-    players_have: yup.number().positive().integer().typeError("Please enter a number").max(6),
+    players_needed: yup.number().positive().required("Must be a number between 1 and 6.").integer().typeError("Please enter a number.").max(6),
+    players_have: yup.number().positive().required("Must be a number between 1 and 6.").integer().typeError("Please enter a number.").max(6),
 });
 
 const listingFormik = useFormik({
@@ -21,6 +21,7 @@ const listingFormik = useFormik({
     },
     validationSchema : listingFormSchema,
     onSubmit: (values) => {
+        listingFormik.resetForm()
         fetch("/listingindex", {
             method: "POST",
             headers: {

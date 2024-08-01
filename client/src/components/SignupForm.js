@@ -39,8 +39,9 @@ function SignUpForm({setUser, setShowLogin, errors, setErrors}) {
             },
         });
 
-    return <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+    return <div className="card bg-base-100 w-96 max-w-sm shrink-0 shadow-2xl">
         <form className="card-body" onSubmit={signupForm.handleSubmit}>
+        <div className="card-title justify-center">Welcome to The Tavern!</div><br />
         <label className="input input-bordered flex items-center gap-2">
             <svg
             xmlns="http://www.w3.org/2000/svg"

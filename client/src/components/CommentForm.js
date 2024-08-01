@@ -16,6 +16,7 @@ const commentFormik = useFormik({
     },
     validationSchema : commentFormSchema,
     onSubmit: (values) => {
+        commentFormik.resetForm({body: ""})
         fetch("/comments", {
             method: "POST",
             headers: {
@@ -26,7 +27,6 @@ const commentFormik = useFormik({
     ).then((res) => {
             if (res.ok) {
                 setRefreshPage(!refreshPage);
-                commentFormik.resetForm()
             }
             });
         },
@@ -36,7 +36,7 @@ const commentFormik = useFormik({
     return <form onSubmit={commentFormik.handleSubmit}>
         <div className="card-actions">
         <div className="join">
-        <input id="body" className="input input-bordered text-primary join-item" type="text" name="body" placeholder="Leave a comment!" onChange={commentFormik.handleChange}/>
+        <input id="body" className="input input-bordered text-primary join-item" type="text" name="body" placeholder="Leave a comment!" onChange={commentFormik.handleChange} value={commentFormik.values.body}/>
         <button className="btn join-item rounded-r-full" type="submit">Post</button>
          </div>
         </div>

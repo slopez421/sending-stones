@@ -33,8 +33,9 @@ function LoginForm({setErrors, errors, setUser, setShowLogin}) {
             },
         });
     
-    return <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+    return <div className="card bg-base-100 w-96 max-w-sm shrink-0 shadow-2xl">
         <form className="card-body" onSubmit={loginFormik.handleSubmit}>
+        <div className="card-title justify-center">Welcome Back to The Tavern!</div><br />
         <label className="input input-bordered flex items-center gap-2">
             <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +65,7 @@ function LoginForm({setErrors, errors, setUser, setShowLogin}) {
             <button className="btn btn-primary" type="submit">Login</button>
             <button className="btn btn-primary" onClick={() => setShowLogin(false)}>Don't have an account?</button>
         </form>
-        {errors ? <h2 className="card-body">Uh oh! {errors.error}</h2>: <></> }
+        {errors ? <h2 className="card-body text-md">Uh oh! {errors.error}</h2>: <></> }
     </div>
 }
 

@@ -29,7 +29,7 @@ const [accountUpdated, setAccountUpdated] = useState(false)
     <Routes>
       <Route path="/" element={<Home refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
       </Route>
-      <Route path="/mylistings" element={<MyListings refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
+      <Route path="/myposts" element={<MyListings refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
       </Route>
       <Route path="/myaccount" element={<Account accountUpdated={accountUpdated} setAccountUpdated={setAccountUpdated} setUser={setUser} user={user}/>}>
       </Route>
