@@ -10,12 +10,7 @@ from config import app, db, api
 # Add your model imports
 from models import User, Comment, Listing
 # Views go here!
-
-@app.route('/')
-def index():
-    return '<h1>Project Server</h1>'
-
-    
+ 
 class CheckSession(Resource):
     def get(self):
         if session.get('user_id'):
@@ -46,6 +41,31 @@ class ListingIndex(Resource):
         
         except:
             return {'error': 'Failed to create new listing'}, 422
+
+class ListingsById(Resource):
+    def get(self):
+        user_id = session.get('user_id')
+        listings = Listing.query.filter(Listing.user_id == user_id).all()
+        return [list.to_dict() for list in listings], 200
+
+class UpdateUser(Resource):
+    def patch(self):
+        user_id = session.get('user_id')
+        user = User.query.filter(User.id == user_id).first()
+        first_name = request.get_json()['first_name']
+        last_name = request.get_json()['last_name']
+        username = request.get_json()['username']
+        try:
+            user.first_name = first_name
+            user.last_name = last_name
+            user.username = username
+
+            db.session.add(user)
+            db.session.commit()
+
+            return user.to_dict(), 201
+        except:
+            return {'error': 'Update failed.'}
 
 class Login(Resource): 
     def post(self):
@@ -109,6 +129,8 @@ api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(Signup, '/signup')
 api.add_resource(Comments, '/comments')
+api.add_resource(ListingsById, '/mylistings')
+api.add_resource(UpdateUser, '/updateuser')
 
 
 

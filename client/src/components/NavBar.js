@@ -41,7 +41,7 @@ function handleLogout() {
     </div>
   </div>
   <div className="navbar-center">
-    <NavLink className="btn btn-ghost text-xl" exact to="/">The Tavern</NavLink>
+    <NavLink className="btn btn-ghost text-xl" to="/">The Tavern</NavLink>
   </div>
   <div className="navbar-end">
         <button className="btn btn-primary" onClick={handleLogout}>Logout</button>

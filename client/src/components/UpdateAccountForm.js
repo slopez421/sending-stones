@@ -5,9 +5,9 @@ import * as yup from "yup";
 function UpdateAccountForm({user, setUser, setIsUpdating, setAccountUpdated}) {
 
     const accountSchema = yup.object().shape({
-        first_name: yup.string(),
-        last_name: yup.string(),
-        username: yup.string(),
+        first_name: yup.string().required("If there are no changes to your first name, leave your first name in place."),
+        last_name: yup.string().required("If there are no changes to your last name, leave your last name in place."),
+        username: yup.string().required("If there are no changes to your username, leave the current username in place."),
     });
     
     const accountFormik = useFormik({
@@ -36,12 +36,15 @@ function UpdateAccountForm({user, setUser, setIsUpdating, setAccountUpdated}) {
 
     return <form className="card-body text-primary"  onSubmit={accountFormik.handleSubmit}>
         <h1 className="card-title text-neutral-content justify-center">My Account</h1><br />
+        <span className="label-text-alt text-neutral-content">{accountFormik.errors.first_name}</span>
             <label className="input input-bordered flex items-center gap-2 text-secondary-content">First Name: 
             <input id="first_name" type="text" className="grow" placeholder="" name="first_name" onChange={accountFormik.handleChange} value={accountFormik.values.first_name} />
             </label>
+            <span className="label-text-alt text-neutral-content">{accountFormik.errors.last_name}</span>
             <label className="input input-bordered flex items-center gap-2 text-secondary-content">Last Name: 
             <input id="last_name" type="text" className="grow" placeholder="" name="last_name" onChange={accountFormik.handleChange} value={accountFormik.values.last_name} />
             </label>
+            <span className="label-text-alt text-neutral-content">{accountFormik.errors.username}</span>
             <label className="input input-bordered flex items-center gap-2 text-secondary-content">Username: 
             <input id="username" type="text" className="grow" placeholder="" name="username" onChange={accountFormik.handleChange} value={accountFormik.values.username} />
             </label>

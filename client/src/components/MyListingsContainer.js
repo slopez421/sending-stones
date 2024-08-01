@@ -6,7 +6,7 @@ function MyListingsContainer({mylistings, refreshPage, setRefreshPage, user}) {
      <div className="divider divider-error mx-20 mt-10"><h1 className="card-title">Your Adventures Awaiting</h1></div>
      <div className="grid gap-x-5 gap-y-10 grid-cols-4 mx-20 mt-10">
         {mylistings.map((listing, id) => 
-        <ListingCard listing={listing} key={id} refreshPage={refreshPage} setRefreshPage={setRefreshPage} currentUser={user}/>
+        <ListingCard key={id} listing={listing} refreshPage={refreshPage} setRefreshPage={setRefreshPage} currentUser={user}/>
         )}
         </div>
     </>

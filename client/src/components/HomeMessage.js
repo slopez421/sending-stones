@@ -16,7 +16,8 @@ function HomeMessage({listings}) {
                 Barbarians come in need of sneaky rogues for reconnoisance missions. <br />
                 Clerics seek like-minded Paladins to aid their holy journey.<br />
                 Wizards searching for Fighters to lend their strength and protection.<br />
-                Whether you need an entire party or just an additional adventurer, The Tavern is the place to be. Add a post to the adventuring board and your next party member could respond!
+                Whether you need an entire party or just an additional adventurer, The Tavern is the place to be.<br />
+                Add a post to the adventuring board and your next party member could respond!
                 
                 </div>
                 <div className="stats shadow">

@@ -1,11 +1,11 @@
 import React from "react";
-import { useFormik } from "formik";
+import {useFormik} from "formik";
 import * as yup from "yup";
 
-function CommentForm({user, listing, refreshPage, setRefreshPage, listing_id}) {
+function CommentForm({user, listing, refreshPage, setRefreshPage}) {
 
 const commentFormSchema = yup.object().shape({
-    body: yup.string().max(100),
+    body: yup.string().required("Comments will not post if left empty.").max(100),
 });
 
 const commentFormik = useFormik({
@@ -22,9 +22,11 @@ const commentFormik = useFormik({
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(values),
-        }).then((res) => {
+        }
+    ).then((res) => {
             if (res.ok) {
                 setRefreshPage(!refreshPage);
+                commentFormik.resetForm()
             }
             });
         },
@@ -34,11 +36,11 @@ const commentFormik = useFormik({
     return <form onSubmit={commentFormik.handleSubmit}>
         <div className="card-actions">
         <div className="join">
-        <input id="body" className="input input-bordered join-item" type="text" name="body" placeholder="Leave a comment!" onChange={commentFormik.handleChange}/>
+        <input id="body" className="input input-bordered text-primary join-item" type="text" name="body" placeholder="Leave a comment!" onChange={commentFormik.handleChange}/>
         <button className="btn join-item rounded-r-full" type="submit">Post</button>
-        <p>{commentFormik.errors.body}</p>
          </div>
         </div>
+        <p className="text-accent-content">{commentFormik.errors.body}</p>
     </form>
    
 
