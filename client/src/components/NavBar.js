@@ -34,9 +34,9 @@ function handleLogout() {
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-        <li><NavLink exact to="/">Homepage</NavLink></li>
-        <li><NavLink exact to="/mylistings">My Posts</NavLink></li>
-        <li><NavLink exact to="/myaccount">My Account</NavLink></li>
+        <li><NavLink to="/" end>Homepage</NavLink></li>
+        <li><NavLink to="/mylistings" end>My Posts</NavLink></li>
+        <li><NavLink to="/myaccount" end>My Account</NavLink></li>
       </ul>
     </div>
   </div>

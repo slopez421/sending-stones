@@ -25,7 +25,6 @@ function LoginForm({setErrors, errors, setUser, setShowLogin}) {
                 body: JSON.stringify(values),
             }).then((res) => {
                 if (res.ok) {
-                    console.log(res)
                     res.json().then((user) => setUser(user));
                 } else {
                   res.json().then((error) => setErrors(error))

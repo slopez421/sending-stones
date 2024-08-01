@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import ListingsContainer from "../components/ListingsContainer";
 import ListingForm from "../components/ListingForm";
+import HomeMessage from "../components/HomeMessage";
 
 function Home({user, refreshPage, setRefreshPage}) {
 
@@ -14,11 +15,16 @@ useEffect(() => {
 
 
     return (
-        <div >
-            <div className="mx-20" >
+        <div className="grid grid-cols-4 gap-y-10 mx-20">
+            <div className="col-span-1 mt-10">
             <ListingForm user={user} refreshPage={refreshPage} setRefreshPage={setRefreshPage}/>
             </div>
+            <div className="col-span-3 mt-10">
+            <HomeMessage />
+            </div>
+            <div className="col-span-4">
             <ListingsContainer listings={listings} user={user} refreshPage={refreshPage} setRefreshPage={setRefreshPage} /> 
+            </div>
     </div>
     )
 }

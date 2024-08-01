@@ -36,7 +36,7 @@ const listingFormik = useFormik({
     });
 
     
-    return <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+    return <div className="card w-xl shadow-2xl max-w-sm shrink-0 w-96 ">
         <form className="card-body" onSubmit={listingFormik.handleSubmit}>
         <h1 className="card-title justify-center">Adventuring Board</h1><br />
             <label className="input input-bordered flex items-center gap-2">Title

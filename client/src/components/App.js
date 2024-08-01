@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, BrowserRouter, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -11,6 +11,7 @@ function App() {
 const [user, setUser] = useState(null)
 const [refreshPage, setRefreshPage] = useState(false)
 const [errors, setErrors] = useState("")
+const [accountUpdated, setAccountUpdated] = useState(false)
 
   useEffect(() => {
     fetch("/check_session").then((r) => {
@@ -24,17 +25,15 @@ const [errors, setErrors] = useState("")
 
   return <div data-theme="autumn">
     <div >
-    <BrowserRouter>
     <NavBar setUser={setUser}/>
     <Routes>
-      <Route path ="/" element={<Home refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
+      <Route path="/" element={<Home refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
       </Route>
       <Route path="/mylistings" element={<MyListings refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
       </Route>
-      <Route path="/myaccount" element={<Account refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
+      <Route path="/myaccount" element={<Account accountUpdated={accountUpdated} setAccountUpdated={setAccountUpdated} setUser={setUser} user={user}/>}>
       </Route>
       </Routes>
-    </BrowserRouter>
     </div>
   </div>
 }

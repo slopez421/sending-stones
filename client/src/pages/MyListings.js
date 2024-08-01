@@ -13,7 +13,7 @@ useEffect(() => {
 
 
     return <div>
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-20">
         <div className="card-compact mx-20 w-full max-w-sm shrink-0 shadow-2xl rounded-box bg-primary text-primary-content w-96 ">
             <div className="card-body">
             <h2 className="card-title">
