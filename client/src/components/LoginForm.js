@@ -61,8 +61,8 @@ function LoginForm({setErrors, errors, setUser, setShowLogin}) {
             <input type="password" placeholder="Password" className="grow" id="password" name="password" onChange={loginFormik.handleChange} value={loginFormik.values.password} />
             </label>
             <p style={{ color: "red" }}> {loginFormik.errors.password}</p>
-            <button className="btn" type="submit">Login</button>
-            <button className="btn" onClick={() => setShowLogin(false)}>Don't have an account?</button>
+            <button className="btn btn-primary" type="submit">Login</button>
+            <button className="btn btn-primary" onClick={() => setShowLogin(false)}>Don't have an account?</button>
         </form>
         {errors ? <h2 className="card-body">Uh oh! {errors.error}</h2>: <></> }
     </div>

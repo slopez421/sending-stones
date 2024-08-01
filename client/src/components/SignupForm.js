@@ -29,8 +29,9 @@ function SignUpForm({setUser, setShowLogin, errors, setErrors}) {
                 body: JSON.stringify(values),
             }).then((res) => {
                 if (res.ok) {
-                    console.log(res)
-                    res.json().then((user) => setUser(user));
+                    res.json().then((user) => 
+                        setUser(user)
+                );
                 } else {
                   res.json().then((error) => setErrors(error))
                 }
@@ -90,8 +91,8 @@ function SignUpForm({setUser, setShowLogin, errors, setErrors}) {
             <input type="password" placeholder="Password" className="grow" id="password" name="password" onChange={signupForm.handleChange} value={signupForm.values.password} />
             </label>
             <p style={{ color: "red" }}> {signupForm.errors.password}</p>
-            <button className="btn" type="submit">Signup</button>
-            <button className="btn" onClick={() => setShowLogin(true)}>Login</button>
+            <button className="btn btn-primary" type="submit">Signup</button>
+            <button className="btn btn-primary" onClick={() => setShowLogin(true)}>Login</button>
         </form>
         {errors ? <h2 className="card-body">Uh oh! {errors.error}</h2>: <></> }
     </div>
