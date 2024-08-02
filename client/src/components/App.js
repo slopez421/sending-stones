@@ -5,7 +5,6 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import MyListings from "../pages/MyListings";
 import Account from "../pages/Account";
-import { BrowserRouter } from "react-router-dom";
 
 
 function App() {
@@ -17,7 +16,8 @@ const [accountUpdated, setAccountUpdated] = useState(false)
   useEffect(() => {
     fetch("/check_session").then((r) => {
       if (r.ok) {
-        r.json().then((user) => setUser(user))
+        r.json().then((user) => {
+          setUser(user)})
       }
     });
   }, []);
@@ -26,7 +26,6 @@ const [accountUpdated, setAccountUpdated] = useState(false)
 
   return <div data-theme="autumn">
     <div >
-      <BrowserRouter>
     <NavBar setUser={setUser}/>
     <Routes>
       <Route path="/" element={<Home refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
@@ -36,7 +35,6 @@ const [accountUpdated, setAccountUpdated] = useState(false)
       <Route path="/myaccount" element={<Account accountUpdated={accountUpdated} setAccountUpdated={setAccountUpdated} setUser={setUser} user={user}/>}>
       </Route>
       </Routes>
-      </BrowserRouter>
     </div>
   </div>
 }

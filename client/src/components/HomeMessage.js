@@ -13,6 +13,7 @@ function HomeMessage({listings}) {
             <div className="grid grid-cols-5">
                 <div className="col-span-4 text-lg">
                 Weary travellers from every realm come to The Tavern seeking fellow adventuring companions.<br />
+
                 Barbarians come in need of sneaky rogues for reconnoisance missions. <br />
                 Clerics seek like-minded Paladins to aid their holy journey.<br />
                 Wizards searching for Fighters to lend their strength and protection.<br />

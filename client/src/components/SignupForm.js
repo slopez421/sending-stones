@@ -1,9 +1,11 @@
 import React from "react";
 import * as yup from "yup"
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 
 function SignUpForm({setUser, setShowLogin, errors, setErrors}) {
 
+    const navigate = useNavigate()
     const signupFormSchema = yup.object().shape({
         first_name: yup.string().required("First name is required to sign up."),
         last_name: yup.string().required("Last name is required to sign up."),
@@ -30,7 +32,9 @@ function SignUpForm({setUser, setShowLogin, errors, setErrors}) {
             }).then((res) => {
                 if (res.ok) {
                     res.json().then((user) => 
-                        setUser(user)
+                        {   navigate("/")
+                            setUser(user)
+                        }
                 );
                 } else {
                   res.json().then((error) => setErrors(error))
