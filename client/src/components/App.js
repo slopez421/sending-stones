@@ -20,19 +20,19 @@ const [accountUpdated, setAccountUpdated] = useState(false)
           setUser(user)})
       }
     });
-  }, []);
+  }, [refreshPage]);
   
   if (!user) return <Login user={user} setUser={setUser} errors={errors} setErrors={setErrors}/>
 
   return <div data-theme="autumn">
     <div >
-    <NavBar setUser={setUser}/>
+    <NavBar setUser={setUser} setErrors={setErrors}/>
     <Routes>
       <Route path="/" element={<Home refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
       </Route>
       <Route path="/myposts" element={<MyListings refreshPage={refreshPage} setRefreshPage={setRefreshPage} user={user}/>}>
       </Route>
-      <Route path="/myaccount" element={<Account accountUpdated={accountUpdated} setAccountUpdated={setAccountUpdated} setUser={setUser} user={user}/>}>
+      <Route path="/myaccount" element={<Account errors={errors} setErrors={setErrors} accountUpdated={accountUpdated} setAccountUpdated={setAccountUpdated} setUser={setUser} user={user}/>}>
       </Route>
       </Routes>
     </div>

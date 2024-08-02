@@ -2,20 +2,21 @@ import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-function UpdateAccountForm({user, setUser, setIsUpdating, setAccountUpdated}) {
+function UpdateAccountForm({setUser, setIsUpdating, setAccountUpdated, errors, setErrors}) {
 
     const accountSchema = yup.object().shape({
-        first_name: yup.string().required("If there are no changes to your first name, leave your first name in place."),
+        first_name: yup.string().required("If there are no changes to your first name, leave first name in place."),
         last_name: yup.string().required("If there are no changes to your last name, leave your last name in place."),
         username: yup.string().required("If there are no changes to your username, leave the current username in place."),
     });
     
     const accountFormik = useFormik({
         initialValues: {
-            first_name: user.first_name,
-            last_name: user.last_name,
-            username: user.username,
+            first_name: "",
+            last_name: "",
+            username: "",
         },
+        
         validationSchema: accountSchema,
         onSubmit: (values) => {
             fetch("/updateuser", {
@@ -25,10 +26,12 @@ function UpdateAccountForm({user, setUser, setIsUpdating, setAccountUpdated}) {
                 },
                 body: JSON.stringify(values, null, 2),
               }).then((res) => {
-                if (res.ok) {
-                    res.json().then((updatedUser) => setUser(updatedUser))
+                if (res.status === 201) {
+                    res.json().then((updatedUser) => {setUser(updatedUser)})
                   setAccountUpdated(true);
                   setIsUpdating(false);
+                } else {
+                  res.json().then((error) => setErrors(error))
                 }
               });    
         }
@@ -50,6 +53,7 @@ function UpdateAccountForm({user, setUser, setIsUpdating, setAccountUpdated}) {
             </label>
             <button className="btn" type="submit">Update Account</button>
             <button className="btn" onClick={() => setIsUpdating(false)}>Cancel</button>
+            {errors ? <h2 className="card-body text-neutral-content">Uh oh! {errors.error}</h2>: <></> }
         </form>
 }
 

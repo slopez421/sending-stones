@@ -34,6 +34,7 @@ function SignUpForm({setUser, setShowLogin, errors, setErrors}) {
                     res.json().then((user) => 
                         {   navigate("/")
                             setUser(user)
+                            setErrors("")
                         }
                 );
                 } else {
@@ -97,7 +98,7 @@ function SignUpForm({setUser, setShowLogin, errors, setErrors}) {
             </label>
             <p style={{ color: "red" }}> {signupForm.errors.password}</p>
             <button className="btn btn-primary" type="submit">Signup</button>
-            <button className="btn btn-primary" onClick={() => setShowLogin(true)}>Login</button>
+            <button className="btn btn-primary" onClick={() => {setShowLogin(true); setErrors("")}}>Login</button>
         </form>
         {errors ? <h2 className="card-body">Uh oh! {errors.error}</h2>: <></> }
     </div>

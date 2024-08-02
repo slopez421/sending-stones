@@ -55,17 +55,17 @@ class UpdateUser(Resource):
         first_name = request.get_json()['first_name']
         last_name = request.get_json()['last_name']
         username = request.get_json()['username']
-        try:
-            user.first_name = first_name
-            user.last_name = last_name
-            user.username = username
+        user.first_name = first_name
+        user.last_name = last_name
+        user.username = username
 
+        try:
             db.session.add(user)
             db.session.commit()
 
             return user.to_dict(), 201
         except:
-            return {'error': 'Update failed.'}
+            return {'error': 'Username taken. Please choose another.'}
 
 class Login(Resource): 
     def post(self):
