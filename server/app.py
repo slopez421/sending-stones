@@ -119,7 +119,7 @@ class Comments(Resource):
             return comment.to_dict(), 201
         
         except:
-            return {'error': 'Failed to post comment.'}
+            return {'error': 'Failed to post comment.'}, 422
 
 
         
