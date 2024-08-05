@@ -18,7 +18,7 @@ class User(db.Model, SerializerMixin):
     listings = db.relationship('Listing', back_populates='user')
     comments = db.relationship('Comment', back_populates='user')
 
-    serialize_rules = ('-comments.user', '-comments.user', '-_passwprd_hash',)
+    serialize_rules = ('-comments.user', '-listings.user', '-_password_hash',)
 
     @hybrid_property
     def password_hash(self):
