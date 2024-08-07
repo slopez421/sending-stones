@@ -8,7 +8,7 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, User, Comment, Listing
+from models import db, User, Comment, Listing, Like
 from config import bcrypt
 
 
@@ -20,6 +20,7 @@ if __name__ == '__main__':
         User.query.delete()
         Comment.query.delete()
         Listing.query.delete()
+        Like.query.delete()
 
         fake = Faker()
 
@@ -61,6 +62,19 @@ if __name__ == '__main__':
             comment.listing = rc(listings)
             comments.append(comment)
         db.session.add_all(comments)
+        db.session.commit()
+
+        print("Creating likes...")
+        likes = []
+        heart_colors = ["blue", "red", "green", "yellow", "orange", "purple", "pink"]
+        for i in range(10):
+            like = Like(
+                heart_color = rc(heart_colors)
+            )
+            like.user = rc(users)
+            like.listing = rc(listings)
+            likes.append(like)
+        db.session.add_all(likes)
         db.session.commit()
 
         print("Complete.")

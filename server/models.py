@@ -17,6 +17,9 @@ class User(db.Model, SerializerMixin):
 
     listings = db.relationship('Listing', back_populates='user')
     comments = db.relationship('Comment', back_populates='user')
+    likes = db.relationship('Like', back_populates='user', cascade='all, delete-orphan')
+
+    liked_listings = association_proxy('likes', 'listing', creator=lambda listing_obj: Like(listing=listing_obj))
 
     serialize_rules = ('-comments.user', '-listings.user', '-_password_hash',)
 
@@ -51,6 +54,10 @@ class Listing(db.Model, SerializerMixin):
     user = db.relationship('User', back_populates='listings')
     comments = db.relationship('Comment', back_populates='listing')
 
+    likes = db.relationship('Like', back_populates='listing', cascade='all, delete-orphan')
+
+    liked_users = association_proxy('likes', 'user', 
+                                    creator=lambda user_obj: Like(user=user_obj))
     serialize_rules = ('-user.listings', '-comment.listings',)
 
     @validates('players_needed', 'players_have')
@@ -75,3 +82,18 @@ class Comment(db.Model, SerializerMixin):
 
     serialize_only = ('body', 'id','listing_id')
     def __repr__(self): return f'<Comment {self.id}: {self.body}>'
+
+class Like(db.Model, SerializerMixin):
+    __tablename__ = 'likes'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    heart_color = db.Column(db.String)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    listing_id = db.Column(db.Integer, db.ForeignKey('listings.id'))
+
+    user = db.relationship('User', back_populates='likes')
+    listing = db.relationship('Listing', back_populates='likes')
+
+    def __repr__(self):
+        return f'<Like {self.id}:  Heart Color: {self.heart_color} by {self.user.username} on Listing: {self.listing.title}>'
