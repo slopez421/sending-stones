@@ -24,6 +24,7 @@ const [accountUpdated, setAccountUpdated] = useState(false)
   
   if (!user) return <Login user={user} setUser={setUser} errors={errors} setErrors={setErrors}/>
 
+
   return <div data-theme="autumn">
     <div >
     <NavBar setUser={setUser} setErrors={setErrors}/>

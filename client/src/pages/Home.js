@@ -3,7 +3,7 @@ import ListingsContainer from "../components/ListingsContainer";
 import ListingForm from "../components/ListingForm";
 import HomeMessage from "../components/HomeMessage";
 
-function Home({user, refreshPage, setRefreshPage}) {
+function Home({likes, user, refreshPage, setRefreshPage}) {
 
 const [listings, setListings] = useState([])
 
@@ -23,7 +23,7 @@ useEffect(() => {
             <HomeMessage listings={listings}/>
             </div>
             <div className="col-span-4">
-            <ListingsContainer listings={listings} user={user} refreshPage={refreshPage} setRefreshPage={setRefreshPage} /> 
+            <ListingsContainer likes={likes} listings={listings} user={user} refreshPage={refreshPage} setRefreshPage={setRefreshPage} /> 
             </div>
     </div>
     )
