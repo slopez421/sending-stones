@@ -8,7 +8,7 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import User, Comment, Listing
+from models import User, Comment, Listing, Like
 # Views go here!
  
 class CheckSession(Resource):
@@ -121,6 +121,34 @@ class Comments(Resource):
         except:
             return {'error': 'Failed to post comment.'}, 422
 
+class Likes(Resource):
+    def get(self):
+        likes = db.session.query(Like).all()
+        return [like.to_dict() for like in likes], 200
+    
+    def post(self):
+        heart_color = request.get_json()['heart_color']
+        user_id = request.get_json()['user_id']
+        listing_id = request.get_json()['listing_id']
+
+        like = Like(heart_color=heart_color, user_id=user_id, listing_id=listing_id)
+        try:
+            db.session.add(like)
+            db.session.commit()
+
+            return like.to_dict(), 201
+        except:
+            return {'error': 'Failed to like post.'}, 422
+    
+    def delete(self): 
+        matched_like_id = request.get_json()['id']
+        like = Like.query.filter(Like.id == matched_like_id).first()
+        db.session.delete(like)
+        db.session.commit()
+        return {}, 204
+
+
+
 
         
 api.add_resource(ListingIndex, '/listingindex')
@@ -131,6 +159,7 @@ api.add_resource(Signup, '/signup')
 api.add_resource(Comments, '/comments')
 api.add_resource(ListingsById, '/mylistings')
 api.add_resource(UpdateUser, '/updateuser')
+api.add_resource(Likes, '/likes')
 
 
 

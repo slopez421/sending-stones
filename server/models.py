@@ -9,6 +9,9 @@ from config import db, bcrypt
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
+    serialize_rules = ('-listings.user', '-comments.user', '-likes.user', '-_password_hash',)
+
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False, unique=True)
     _password_hash = db.Column(db.String, nullable=False)
@@ -20,8 +23,6 @@ class User(db.Model, SerializerMixin):
     likes = db.relationship('Like', back_populates='user', cascade='all, delete-orphan')
 
     liked_listings = association_proxy('likes', 'listing', creator=lambda listing_obj: Like(listing=listing_obj))
-
-    serialize_rules = ('-comments.user', '-listings.user', '-_password_hash',)
 
     @hybrid_property
     def password_hash(self):
@@ -44,6 +45,8 @@ class User(db.Model, SerializerMixin):
 class Listing(db.Model, SerializerMixin):
     __tablename__ = 'listings'
 
+    serialize_rules = ('-user.listings', '-comments.listing', '-likes.listing', '-liked_users.liked_listings',)
+
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
     body = db.Column(db.String, nullable=False)
@@ -51,6 +54,7 @@ class Listing(db.Model, SerializerMixin):
     players_have = db.Column(db.Integer, db.CheckConstraint('players_have <= 6'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
+    
     user = db.relationship('User', back_populates='listings')
     comments = db.relationship('Comment', back_populates='listing')
 
@@ -58,7 +62,8 @@ class Listing(db.Model, SerializerMixin):
 
     liked_users = association_proxy('likes', 'user', 
                                     creator=lambda user_obj: Like(user=user_obj))
-    serialize_rules = ('-user.listings', '-comment.listings',)
+    
+   
 
     @validates('players_needed', 'players_have')
     def validate_players_needed(self, key, players):
@@ -72,6 +77,8 @@ class Listing(db.Model, SerializerMixin):
 class Comment(db.Model, SerializerMixin):
     __tablename__ = 'comments'
 
+    serialize_only = ('body', 'id','listing_id',)
+
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -80,11 +87,13 @@ class Comment(db.Model, SerializerMixin):
     user = db.relationship('User', back_populates='comments')
     listing = db.relationship('Listing', back_populates='comments')
 
-    serialize_only = ('body', 'id','listing_id')
+    
     def __repr__(self): return f'<Comment {self.id}: {self.body}>'
 
 class Like(db.Model, SerializerMixin):
     __tablename__ = 'likes'
+
+    serialize_only = ('heart_color', 'user_id', 'id',)
     
     id = db.Column(db.Integer, primary_key=True)
     heart_color = db.Column(db.String)
@@ -94,6 +103,7 @@ class Like(db.Model, SerializerMixin):
 
     user = db.relationship('User', back_populates='likes')
     listing = db.relationship('Listing', back_populates='likes')
+ 
 
     def __repr__(self):
         return f'<Like {self.id}:  Heart Color: {self.heart_color} by {self.user.username} on Listing: {self.listing.title}>'
