@@ -39,11 +39,8 @@ function ListingCard({listing, refreshPage, setRefreshPage, currentUser}) {
             },
             body: JSON.stringify(matched_like)
             }).then((r) => {
-                if (r.status == 204) {
+                if (r.status === 204) {
                     setRefreshPage(!refreshPage)
-                }
-                else {
-                    console.log(matched_like)
                 }
             }) :
             <></>
