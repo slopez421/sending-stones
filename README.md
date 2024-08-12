@@ -118,4 +118,8 @@ add_resource() takes in two arguments: the Resource itself (the class name) and 
 
 The seed file provides randomized Users, Listings and Comments. The faker library is imported for use here as well as bcrypt to ensure the password hash is working for our seed data as well.
 
+### Credits
 
+Client side: 
+[Tailwind CSS](https://tailwindcss.com/docs/installation)
+[daisyUI](https://daisyui.com/docs/install/)
