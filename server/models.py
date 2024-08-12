@@ -24,6 +24,7 @@ class User(db.Model, SerializerMixin):
 
     liked_listings = association_proxy('likes', 'listing', creator=lambda listing_obj: Like(listing=listing_obj))
 
+
     @hybrid_property
     def password_hash(self):
         raise AttributeError('Password hashes may not be viewed.')

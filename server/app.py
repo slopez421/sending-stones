@@ -99,7 +99,7 @@ class Signup(Resource):
             session['user_id'] = user.id
             return user.to_dict(), 201
         except:
-            return {'error': 'Failed to sign up.'}, 422
+            return {'error': 'Failed to successfully sign up. Username taken.'}, 422
 
 class Comments(Resource):
     def get(self):
