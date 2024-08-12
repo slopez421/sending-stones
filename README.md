@@ -80,6 +80,10 @@ The Comment model has a corresponding table named ‘comments’ and four attrib
 
 The body attribute sets nullable to False, meaning null values cannot be stored. The body attribute is also the only attribute a user inputs. 
 
+### Like
+
+The Like model is an association model that takes in one user-submittable attribute, the color of the heart, and has two foreign keys/relationships to User and Listing.
+
 ### App.py
 
 After importing our models,app, db, api, Resource, request, and session, we set up our views in App.py. All views in this file inherit from the aforementioned Resource class so we can set up routes at the bottom of the file. 
@@ -103,6 +107,9 @@ Logout only accepts a delete() request and assigns a value of None to the sessio
 204 is used instead of 200 because there is no context to return, whereas 200 would usually imply a successful request with additional content supplied (such as retrieving information and returning that information). 
 
 Comments accepts a post() request that takes in a body value, the user_id, and the listing_id which is provided by the client-side form. The user only has to supply the body (or the “comment” itself). If a new Comment object is successfully created, then that instance is saved/mapped to the database table and returned serialized with a 201 successful post code. If it is not successfully created, then it is not saved to the database and instead, an error message is returned with a 422 code (unsuccessful request due to invalid data). 
+
+Likes accepts a post() request that takes in the heart color provided by the user's selection, the user_id passed in from the User currently logged into a session, and the listing_id that is obtained from the Listing this Like exists on. A successful like is returned and state is updated on the React side to display this like. 
+Likes also accepts a delete() request that takes in the id of the current Like and deletes it from the database. State is then called again on the React side to delete the heart_color and display the heart options for the user. 
 
 At the bottom of the file, there are resources added for each relevant path. 
 add_resource() takes in two arguments: the Resource itself (the class name) and the URL path that the client side will be fetching to. 
