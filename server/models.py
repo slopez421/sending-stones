@@ -18,8 +18,8 @@ class User(db.Model, SerializerMixin):
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
 
-    listings = db.relationship('Listing', back_populates='user')
-    comments = db.relationship('Comment', back_populates='user')
+    listings = db.relationship('Listing', back_populates='user', cascade='all, delete-orphan')
+    comments = db.relationship('Comment', back_populates='user', cascade='all, delete-orphan')
     likes = db.relationship('Like', back_populates='user', cascade='all, delete-orphan')
 
     liked_listings = association_proxy('likes', 'listing', creator=lambda listing_obj: Like(listing=listing_obj))
@@ -57,7 +57,7 @@ class Listing(db.Model, SerializerMixin):
 
     
     user = db.relationship('User', back_populates='listings')
-    comments = db.relationship('Comment', back_populates='listing')
+    comments = db.relationship('Comment', back_populates='listing', cascade='all, delete-orphan')
 
     likes = db.relationship('Like', back_populates='listing', cascade='all, delete-orphan')
 
